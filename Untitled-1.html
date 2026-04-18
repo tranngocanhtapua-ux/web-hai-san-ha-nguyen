@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hải Sản Hà Nguyễn</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #eef4f8;
+      color: #1f2937;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    header {
+      background: linear-gradient(90deg, #0ea5e9, #0284c7);
+      color: white;
+      padding: 12px 30px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .hotline {
+      font-size: 18px;
+      font-weight: bold;
+      background: #ef4444;
+      padding: 8px 14px;
+      border-radius: 10px;
+    }
+
+    nav {
+      margin-top: 12px;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #fde68a;
+    }
+
+    .hero {
+      background: url('https://images.unsplash.com/photo-1510130387422-82bed34b37e9?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 40, 70, 0.55);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      max-width: 800px;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 20px;
+      margin-bottom: 25px;
+      line-height: 1.6;
+    }
+
+    .hero-buttons button {
+      border: none;
+      padding: 14px 22px;
+      margin: 5px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-primary {
+      background: #f97316;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #ea580c;
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #0284c7;
+    }
+
+    .btn-secondary:hover {
+      background: #e0f2fe;
+    }
+
+    .section {
+      padding: 60px 30px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 34px;
+      margin-bottom: 35px;
+      color: #0369a1;
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .category-card {
+      background: white;
+      border-radius: 18px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      transition: 0.3s;
+    }
+
+    .category-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .category-card h3 {
+      color: #0f172a;
+      margin-bottom: 10px;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      transition: 0.3s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .product-info {
+      padding: 18px;
+    }
+
+    .product-info h3 {
+      margin-bottom: 10px;
+      color: #0f172a;
+      font-size: 18px;
+    }
+
+    .price {
+      color: #dc2626;
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .desc {
+      color: #475569;
+      font-size: 14px;
+      line-height: 1.7;
+      min-height: 72px;
+      margin-bottom: 14px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .actions button {
+      flex: 1;
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+
+    .add-cart {
+      background: #f97316;
+      color: white;
+    }
+
+    .add-cart:hover {
+      background: #ea580c;
+    }
+
+    .quick-call {
+      background: #0ea5e9;
+      color: white;
+    }
+
+    .quick-call:hover {
+      background: #0284c7;
+    }
+
+    .cart-box {
+      width: 100%;
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      padding: 22px;
+      position: static;
+    }
+
+    .cart-box h3 {
+      margin-bottom: 12px;
+      color: #0369a1;
+      font-size: 28px;
+    }
+
+    .cart-items {
+      max-height: 320px;
+      overflow-y: auto;
+      margin-bottom: 12px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 12px 0;
+      font-size: 14px;
+    }
+
+    .cart-total {
+      font-size: 28px;
+      font-weight: bold;
+      margin: 10px 0;
+      color: #dc2626;
+    }
+
+    .cart-buttons button {
+      width: 100%;
+      margin-top: 8px;
+      border: none;
+      padding: 14px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .order-btn {
+      background: #16a34a;
+      color: white;
+    }
+
+    .order-btn:hover {
+      background: #15803d;
+    }
+
+    .clear-btn {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .clear-btn:hover {
+      background: #d1d5db;
+    }
+
+    .order-form {
+      margin-top: 15px;
+      display: none;
+    }
+
+    .order-form input,
+    .order-form textarea {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      outline: none;
+      font-size: 15px;
+    }
+
+    .order-form textarea {
+      resize: none;
+      height: 80px;
+    }
+
+    .submit-order {
+      background: #16a34a;
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .submit-order:hover {
+      background: #15803d;
+    }
+
+    .admin-orders {
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      padding: 20px;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    th, td {
+      border: 1px solid #e5e7eb;
+      padding: 10px;
+      text-align: left;
+      font-size: 14px;
+      vertical-align: top;
+    }
+
+    th {
+      background: #e0f2fe;
+      color: #075985;
+    }
+
+    .chat-box {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 320px;
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+      z-index: 1000;
+    }
+
+    .chat-header {
+      background: #0ea5e9;
+      color: white;
+      padding: 14px;
+      font-weight: bold;
+    }
+
+    .chat-body {
+      padding: 14px;
+      height: 220px;
+      overflow-y: auto;
+      background: #f8fafc;
+    }
+
+    .msg {
+      margin-bottom: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      max-width: 85%;
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .shop {
+      background: #e0f2fe;
+    }
+
+    .user {
+      background: #dcfce7;
+      margin-left: auto;
+    }
+
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .chat-input input {
+      flex: 1;
+      border: none;
+      padding: 12px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .chat-input button {
+      border: none;
+      background: #f97316;
+      color: white;
+      padding: 0 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    footer {
+      background: #0f172a;
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: 50px;
+    }
+
+    .notice {
+      margin-top: 10px;
+      color: #16a34a;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 34px;
+      }
+
+      .hero p {
+        font-size: 17px;
+      }
+
+      .chat-box {
+        width: calc(100% - 20px);
+        right: 10px;
+        bottom: 10px;
+      }
+
+      .section {
+        padding: 45px 15px;
+      }
+
+      .cart-box h3 {
+        font-size: 24px;
+      }
+
+      .cart-total {
+        font-size: 24px;
+      }
+
+      nav {
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="topbar">
+      <div class="logo">🐟 Hải Sản Hà Nguyễn</div>
+      <div class="hotline">📞 Hotline đặt hàng: 0909 123 456</div>
+    </div>
+    <nav>
+      <a href="#trangchu">Trang chủ</a>
+      <a href="#danhmuc">Danh mục</a>
+      <a href="#sanpham">Sản phẩm</a>
+      <a href="#giohang">Giỏ hàng</a>
+      <a href="#donhang">Đơn hàng</a>
+      <a href="#lienhe">Liên hệ</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="trangchu">
+    <div class="hero-content">
+      <h1>Hải Sản Hà Nguyễn</h1>
+      <p>
+        Tươi ngon mỗi ngày - giao nhanh tận nơi.
+        Chuyên khô mực một nắng, hải sản tươi sống, cá nục hấp cho khách quen.
+      </p>
+      <div class="hero-buttons">
+        <button class="btn-primary" onclick="scrollToSection('sanpham')">Mua ngay</button>
+        <button class="btn-secondary" onclick="scrollToSection('danhmuc')">Xem sản phẩm</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="danhmuc">
+    <h2 class="section-title">Danh mục nổi bật</h2>
+    <div class="categories">
+      <div class="category-card">
+        <h3>🦑 Khô mực một nắng</h3>
+        <p>Mực dày, ngọt, phơi chuẩn 1 nắng, thơm ngon dễ nướng.</p>
+      </div>
+      <div class="category-card">
+        <h3>🦐 Hải sản tươi sống</h3>
+        <p>Tôm, cua, ghẹ, mực, cá biển tươi mới mỗi ngày.</p>
+      </div>
+      <div class="category-card">
+        <h3>🐟 Cá nục hấp</h3>
+        <p>Món hấp sẵn tiện lợi, hương vị đậm đà, dễ dùng.</p>
+      </div>
+      <div class="category-card">
+        <h3>📦 Đặt hàng nhanh</h3>
+        <p>Thêm giỏ hàng, nhập thông tin, chốt đơn trong vài bước.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="sanpham">
+    <h2 class="section-title">Sản phẩm nổi bật</h2>
+    <div class="products">
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1582450871972-ab5ca7d1f6c4?auto=format&fit=crop&w=1200&q=80" alt="Khô mực một nắng">
+        <div class="product-info">
+          <h3>Khô mực một nắng</h3>
+          <div class="price">450.000đ/kg</div>
+          <div class="desc">Mực dày, thịt ngọt, phơi đúng 1 nắng, phù hợp nướng hoặc chiên nước mắm.</div>
+          <div class="actions">
+            <button class="add-cart" onclick="addToCart('Khô mực một nắng', 450000)">Thêm vào giỏ</button>
+            <button class="quick-call" onclick="callNow()">Đặt nhanh</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1510130387422-82bed34b37e9?auto=format&fit=crop&w=1200&q=80" alt="Hải sản tươi sống">
+        <div class="product-info">
+          <h3>Hải sản tươi sống</h3>
+          <div class="price">300.000đ/phần</div>
+          <div class="desc">Tôm, cua, ghẹ, mực tươi trong ngày. Giá linh hoạt theo loại và thời điểm bán.</div>
+          <div class="actions">
+            <button class="add-cart" onclick="addToCart('Hải sản tươi sống', 300000)">Thêm vào giỏ</button>
+            <button class="quick-call" onclick="callNow()">Đặt nhanh</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1574781330855-d0db8cc6a79c?auto=format&fit=crop&w=1200&q=80" alt="Cá nục hấp">
+        <div class="product-info">
+          <h3>Cá nục hấp</h3>
+          <div class="price">120.000đ/phần</div>
+          <div class="desc">Cá nục hấp sẵn, vị thơm ngon, tiện lợi cho bữa cơm gia đình và khách đặt nhanh.</div>
+          <div class="actions">
+            <button class="add-cart" onclick="addToCart('Cá nục hấp', 120000)">Thêm vào giỏ</button>
+            <button class="quick-call" onclick="callNow()">Đặt nhanh</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?auto=format&fit=crop&w=1200&q=80" alt="Tôm sú tươi">
+        <div class="product-info">
+          <h3>Tôm sú tươi</h3>
+          <div class="price">380.000đ/kg</div>
+          <div class="desc">Tôm chắc thịt, tươi sống, phù hợp hấp, nướng hoặc làm lẩu hải sản.</div>
+          <div class="actions">
+            <button class="add-cart" onclick="addToCart('Tôm sú tươi', 380000)">Thêm vào giỏ</button>
+            <button class="quick-call" onclick="callNow()">Đặt nhanh</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?auto=format&fit=crop&w=1200&q=80" alt="Ghẹ xanh">
+        <div class="product-info">
+          <h3>Ghẹ xanh</h3>
+          <div class="price">420.000đ/kg</div>
+          <div class="desc">Ghẹ xanh tươi ngon, thịt chắc, thích hợp hấp bia hoặc rang me.</div>
+          <div class="actions">
+            <button class="add-cart" onclick="addToCart('Ghẹ xanh', 420000)">Thêm vào giỏ</button>
+            <button class="quick-call" onclick="callNow()">Đặt nhanh</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1625944230945-1b7dd3b949ab?auto=format&fit=crop&w=1200&q=80" alt="Mực lá tươi">
+        <div class="product-info">
+          <h3>Mực lá tươi</h3>
+          <div class="price">360.000đ/kg</div>
+          <div class="desc">Mực lá tươi ngọt, dày mình, rất hợp hấp gừng hoặc nướng muối ớt.</div>
+          <div class="actions">
+            <button class="add-cart" onclick="addToCart('Mực lá tươi', 360000)">Thêm vào giỏ</button>
+            <button class="quick-call" onclick="callNow()">Đặt nhanh</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="giohang">
+    <h2 class="section-title">Giỏ hàng và chốt đơn</h2>
+    <div class="cart-box">
+      <h3>🛒 Giỏ hàng</h3>
+      <div class="cart-items" id="cartItems">
+        <p>Chưa có sản phẩm nào.</p>
+      </div>
+      <div class="cart-total" id="cartTotal">Tổng: 0đ</div>
+
+      <div class="cart-buttons">
+        <button class="order-btn" onclick="toggleOrderForm()">Chốt đơn</button>
+        <button class="clear-btn" onclick="clearCart()">Xóa giỏ hàng</button>
+      </div>
+
+      <div class="order-form" id="orderForm">
+        <input type="text" id="customerName" placeholder="Họ và tên khách hàng" />
+        <input type="text" id="customerPhone" placeholder="Số điện thoại" />
+        <input type="text" id="customerAddress" placeholder="Địa chỉ giao hàng" />
+        <textarea id="customerNote" placeholder="Ghi chú thêm"></textarea>
+        <button class="submit-order" onclick="submitOrder()">Xác nhận đặt hàng</button>
+        <div class="notice" id="orderNotice"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="donhang">
+    <h2 class="section-title">Đơn hàng đã lưu</h2>
+    <div class="admin-orders">
+      <p>Phần này giúp shop kiểm soát đơn hàng đã chốt.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Mã đơn</th>
+            <th>Khách hàng</th>
+            <th>SĐT</th>
+            <th>Địa chỉ</th>
+            <th>Sản phẩm</th>
+            <th>Tổng tiền</th>
+            <th>Ngày đặt</th>
+          </tr>
+        </thead>
+        <tbody id="ordersTableBody">
+          <tr>
+            <td colspan="7">Chưa có đơn hàng nào.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer id="lienhe">
+    <h3>Hải Sản Hà Nguyễn</h3>
+    <p>📞 Hotline: 0909 123 456</p>
+    <p>📍 Địa chỉ: Bình Dương, Việt Nam</p>
+    <p>Chuyên khô mực một nắng - hải sản tươi sống - cá nục hấp</p>
+  </footer>
+
+  <div class="chat-box">
+    <div class="chat-header">💬 Chat với Hải Sản Hà Nguyễn</div>
+    <div class="chat-body" id="chatBody">
+      <div class="msg shop">Xin chào, shop có thể hỗ trợ gì cho bạn?</div>
+      <div class="msg shop">Bạn muốn đặt khô mực một nắng, hải sản tươi sống hay cá nục hấp?</div>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="chatInput" placeholder="Nhập tin nhắn..." />
+      <button onclick="sendMessage()">Gửi</button>
+    </div>
+  </div>
+
+  <script>
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+    function formatMoney(number) {
+      return number.toLocaleString("vi-VN") + "đ";
+    }
+
+    function addToCart(name, price) {
+      const found = cart.find(item => item.name === name);
+
+      if (found) {
+        found.quantity += 1;
+      } else {
+        cart.push({ name, price, quantity: 1 });
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+      alert("Đã thêm vào giỏ hàng: " + name);
+      document.getElementById("giohang").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function renderCart() {
+      const cartItems = document.getElementById("cartItems");
+      const cartTotal = document.getElementById("cartTotal");
+
+      if (cart.length === 0) {
+        cartItems.innerHTML = "<p>Chưa có sản phẩm nào.</p>";
+        cartTotal.textContent = "Tổng: 0đ";
+        return;
+      }
+
+      let total = 0;
+
+      cartItems.innerHTML = cart.map(item => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+
+        return `
+          <div class="cart-item">
+            <div>
+              <strong>${item.name}</strong><br>
+              SL: ${item.quantity}
+            </div>
+            <div>${formatMoney(itemTotal)}</div>
+          </div>
+        `;
+      }).join("");
+
+      cartTotal.textContent = "Tổng: " + formatMoney(total);
+    }
+
+    function clearCart() {
+      cart = [];
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+      document.getElementById("orderNotice").textContent = "";
+    }
+
+    function toggleOrderForm() {
+      const form = document.getElementById("orderForm");
+      form.style.display = form.style.display === "block" ? "none" : "block";
+    }
+
+    function submitOrder() {
+      if (cart.length === 0) {
+        alert("Giỏ hàng đang trống.");
+        return;
+      }
+
+      const name = document.getElementById("customerName").value.trim();
+      const phone = document.getElementById("customerPhone").value.trim();
+      const address = document.getElementById("customerAddress").value.trim();
+      const note = document.getElementById("customerNote").value.trim();
+
+      if (!name || !phone || !address) {
+        alert("Vui lòng nhập đầy đủ họ tên, số điện thoại và địa chỉ.");
+        return;
+      }
+
+      const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      const orderId = "HS" + Date.now();
+
+      const newOrder = {
+        id: orderId,
+        name,
+        phone,
+        address,
+        note,
+        items: [...cart],
+        total,
+        date: new Date().toLocaleString("vi-VN")
+      };
+
+      orders.push(newOrder);
+      localStorage.setItem("orders", JSON.stringify(orders));
+
+      cart = [];
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      document.getElementById("customerName").value = "";
+      document.getElementById("customerPhone").value = "";
+      document.getElementById("customerAddress").value = "";
+      document.getElementById("customerNote").value = "";
+      document.getElementById("orderNotice").textContent = "Đặt hàng thành công! Đơn đã được lưu.";
+
+      renderCart();
+      renderOrders();
+    }
+
+    function renderOrders() {
+      const tbody = document.getElementById("ordersTableBody");
+
+      if (orders.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7">Chưa có đơn hàng nào.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = orders.slice().reverse().map(order => `
+        <tr>
+          <td>${order.id}</td>
+          <td>${order.name}</td>
+          <td>${order.phone}</td>
+          <td>${order.address}</td>
+          <td>${order.items.map(item => `${item.name} (x${item.quantity})`).join("<br>")}</td>
+          <td>${formatMoney(order.total)}</td>
+          <td>${order.date}</td>
+        </tr>
+      `).join("");
+    }
+
+    function sendMessage() {
+      const input = document.getElementById("chatInput");
+      const chatBody = document.getElementById("chatBody");
+      const text = input.value.trim();
+
+      if (!text) return;
+
+      chatBody.innerHTML += `<div class="msg user">${text}</div>`;
+      input.value = "";
+      chatBody.scrollTop = chatBody.scrollHeight;
+
+      setTimeout(() => {
+        chatBody.innerHTML += `<div class="msg shop">Shop đã nhận tin nhắn của bạn. Vui lòng gọi 0909 123 456 để đặt nhanh hơn nhé.</div>`;
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }, 600);
+    }
+
+    function callNow() {
+      window.location.href = "tel:0909123456";
+    }
+
+    function scrollToSection(id) {
+      document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+    }
+
+    renderCart();
+    renderOrders();
+  </script>
+</body>
+</html>
